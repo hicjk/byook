@@ -1,0 +1,51 @@
+@font-face {
+    font-family: noto sans;
+    font-style: normal;
+    font-weight: 200;
+    src: url(~/fonts/NotoSansKR-Light.otf);
+}
+
+@font-face {
+    font-family: noto sans;
+    font-style: normal;
+    font-weight: 400;
+    src: url(~/fonts/NotoSansKR-Regular.otf);
+}
+
+@font-face {
+    font-family: noto sans;
+    font-style: normal;
+    font-weight: 700;
+    src: url(~/fonts/NotoSansKR-Medium.otf);
+}
+
+@font-face {
+    font-family: noto sans;
+    font-style: normal;
+    font-weight: 800;
+    src: url(~/fonts/NotoSansKR-Bold.otf);
+}
+
+html {
+    font-family: "noto sans";
+}
+
+body {
+    width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 60px;
+}
+
+a {
+    text-decoration: none;
+    color: #18c6ff;
+}
+
+a:hover {
+    color: black;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
