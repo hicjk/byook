@@ -26,26 +26,69 @@
     src: url(~/fonts/NotoSansKR-Bold.otf);
 }
 
-html {
+* {
     font-family: "noto sans";
 }
 
-body {
-    width: 1200px;
-    margin: 0 auto;
-    margin-bottom: 60px;
-}
-
 a {
+    display: inline-block;
     text-decoration: none;
     color: #18c6ff;
+}
+
+header {
+    width: 1024px;
+    margin: 0 auto;
+    margin-bottom: 60px;
+    height: 100px;
 }
 
 a:hover {
     color: black;
 }
 
-.container {
-    width: 1200px;
-    margin: 0 auto;
+.logo {
+    display: inline-block;
+    float: left;
+}
+
+.loginBox {
+    display: inline-block;
+    float: right;
+}
+
+#joininfo input {
+    width: 320px;
+    height: 55px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btnJoin {
+    width: 320px;
+    height: 55px;
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    border: 0;
+    border-radius: 5px;
+    background-color: #18c6ff;
+}
+
+.userSelectButton {
+    position: relative;
+    width: 180px;
+    height: 150px;
+    color: white;
+    background-color: #18c6ff;
+    border-radius: 5px;
+}
+
+.userSelectButton *{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
