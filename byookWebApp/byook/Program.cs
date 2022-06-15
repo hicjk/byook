@@ -1,7 +1,14 @@
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Mvc;
+global using byook.DataAccess;
+global using byook.Models;
+global using byook.Models.ViewModels;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ByookDbContext>(option => option.UseInMemoryDatabase("byook"));
 
 var app = builder.Build();
 

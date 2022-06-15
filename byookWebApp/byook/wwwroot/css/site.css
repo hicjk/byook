@@ -2,28 +2,28 @@
     font-family: noto sans;
     font-style: normal;
     font-weight: 200;
-    src: url(~/fonts/NotoSansKR-Light.otf);
+    src: url(/fonts/NotoSansKR-Light.otf);
 }
 
 @font-face {
     font-family: noto sans;
     font-style: normal;
     font-weight: 400;
-    src: url(~/fonts/NotoSansKR-Regular.otf);
+    src: url(/fonts/NotoSansKR-Regular.otf);
 }
 
 @font-face {
     font-family: noto sans;
     font-style: normal;
     font-weight: 700;
-    src: url(~/fonts/NotoSansKR-Medium.otf);
+    src: url(/fonts/NotoSansKR-Medium.otf);
 }
 
 @font-face {
     font-family: noto sans;
     font-style: normal;
     font-weight: 800;
-    src: url(~/fonts/NotoSansKR-Bold.otf);
+    src: url(/fonts/NotoSansKR-Bold.otf);
 }
 
 * {
@@ -57,16 +57,46 @@ a:hover {
     float: right;
 }
 
-#joininfo input {
+#joinInfo input {
     width: 320px;
-    height: 55px;
+    height: 50px;
     margin-bottom: 15px;
     padding-left: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.btnJoin {
+.btnConfirm {
+    width: 120px;
+    height: 50px;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 50px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #18c6ff;
+    text-align: center;
+}
+
+.joinSelectButton {
+    position: relative;
+    width: 200px;
+    height: 110px;
+    color: white;
+    background-color: #18c6ff;
+    border-radius: 5px;
+}
+
+    .joinSelectButton * {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+.loginSelectButton {
+    position: relative;
     width: 320px;
     height: 55px;
     color: white;
@@ -77,18 +107,43 @@ a:hover {
     background-color: #18c6ff;
 }
 
-.userSelectButton {
-    position: relative;
-    width: 180px;
-    height: 150px;
+    .loginSelectButton * {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+.btnJoin {
+    width: 320px;
+    height: 50px;
     color: white;
-    background-color: #18c6ff;
+    font-size: 20px;
+    font-weight: 800;
+    border: 0;
     border-radius: 5px;
+    background-color: #18c6ff;
 }
 
-.userSelectButton *{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+.joinBox {
+    width: 1024px;
+    margin: 0 auto;
 }
+
+    .joinBox input[type=text], input[type=password] {
+        width: 320px;
+        height: 50px;
+        padding-left: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+table {
+    margin: 0 auto;
+    border-top: 2px solid #ccc;
+}
+
+table td {
+    padding-top: 15px;
+}
+
