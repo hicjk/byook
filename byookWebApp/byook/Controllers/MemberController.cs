@@ -5,11 +5,22 @@ namespace byook.Controllers;
 
 public class MemberController : Controller
 {
-    private ByookDbContext context;
+    private readonly ByookDbContext context;
     
     public MemberController(ByookDbContext context)
     {
         this.context = context;
+    }
+
+    [HttpGet]
+    [Route("/api/member/sellers")]
+    public async Task<IActionResult> IsRegistered([FromQuery] string businessNumber)
+    {
+        var isFind = await context.Sellers!
+            .AsNoTracking()
+            .AnyAsync(d => d.SellerId.Equals(businessNumber));
+
+        return Ok(isFind);
     }
 
     public IActionResult Login()
@@ -23,13 +34,13 @@ public class MemberController : Controller
     }
 
     [HttpGet]
-    public IActionResult ConsumerJoin()
+    public IActionResult ConsumerRegister()
     {
         return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> ConsumerJoin(Consumer model)
+    public async Task<IActionResult> ConsumerRegister(Consumer model)
     {
         if(!ModelState.IsValid)
         {
@@ -56,13 +67,13 @@ public class MemberController : Controller
     }
 
     [HttpGet]
-    public IActionResult SellerJoin()
+    public IActionResult SellerRegister()
     {
         return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> SellerJoin(Seller model)
+    public async Task<IActionResult> SellerRegister(Seller model)
     {
         if(!ModelState.IsValid)
         {

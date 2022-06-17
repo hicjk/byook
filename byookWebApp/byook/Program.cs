@@ -2,7 +2,7 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.AspNetCore.Mvc;
 global using byook.DataAccess;
 global using byook.Models;
-global using byook.Models.ViewModels;
+global using byook.ViewModels;
 
 var builder = WebApplication.CreateBuilder(args);
 

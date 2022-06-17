@@ -33,6 +33,7 @@
 a {
     display: inline-block;
     text-decoration: none;
+    cursor: pointer;
     color: #18c6ff;
 }
 
@@ -72,7 +73,6 @@ a:hover {
     color: white;
     font-size: 16px;
     font-weight: 400;
-    line-height: 50px;
     border: 0;
     border-radius: 5px;
     background-color: #18c6ff;
@@ -147,3 +147,35 @@ table td {
     padding-top: 15px;
 }
 
+.modal {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal_body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 300px;
+    padding: 30px;
+    background-color: rgb(255, 255, 255);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.modalCloseButton {
+    width: 19px;
+    height: 19px;
+    border: 0px;
+    float: right;
+    cursor: pointer;
+}

@@ -1,0 +1,35 @@
+﻿<div class="modal">
+    <div class="modal_body">
+        <span>알림메세지</span>
+        <img class="modalCloseButton" src="~/images/icon-close-button.png" />
+        <div>
+            <button type="button">확인</button>
+        </div>
+    </div>
+</div>
+
+<script async>
+    const modal = $(".modal");
+    const inputBody = document.querySelector("#modal .modal_body");
+    const closeButton = document.querySelector(".modalCloseButton");
+
+    modal.click(function(event) {
+        if(event.target === modal[0]) {
+            showModal();
+        }
+    });
+
+
+    closeButton.addEventListener("click", function() {
+        showModal();
+    });
+
+    function showModal() {
+        //modal.classList.toggle("show");
+        modal.toggleClass("show");
+    }
+
+    function inputText(text) {
+        inputBody.innerHTML = text;
+    }
+</script>
