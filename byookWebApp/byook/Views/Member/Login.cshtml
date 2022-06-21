@@ -1,6 +1,6 @@
 ﻿@model Consumer
 
-<div id="joinBox">
+<div id="joinBox" class="text-center">
     <h3>로그인</h3>
     <form method="post" asp-controller="Member" asp-action="Login">
         <div id="joinInfo" class="mt-5">
@@ -9,20 +9,15 @@
             </div>
             <div>
                 <input type="password" asp-for="Password" placeholder="비밀번호" />
-                <p class="guide" style="display: none;">
-                    <span class="case1">10자 이상 입력</span>
-                    <span class="case2">영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합</span>
-                    <span class="case3">동일한 숫자 3개 이상 연속 사용 불가</span>
-                </p>
             </div>
         </div>
         <div class="mb-3">
-            <input class="btnJoin" type="submit" value="로그인" />
+            <input class="btnRegister" type="submit" value="로그인" />
         </div>
     </form>
     <div>
-        <a class="loginSelectButton" asp-controller="Member" asp-action="SellerLogin">
-            <h5 class="w-100">사업자 로그인</h5>
+        <a class="btnRegister" asp-controller="Member" asp-action="SellerLogin">
+            <span>사업자 로그인</span>
         </a>
     </div>
 </div>
