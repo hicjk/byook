@@ -3,7 +3,10 @@
     isCheckPasswordCase1: false,
     isCheckPasswordCase2: false,
     isCheckPasswordCase3: false,
-    isCheckPasswordConform: false
+    isCheckPasswordConfirm: false,
+    isCheckAddress: false,
+    isCheckName: false,
+    isCheckPhoneNumber: false
 };
 
 $("#findAddress").click(function() {
@@ -47,6 +50,7 @@ $("#findBusinessNumber").click(function() {
             const businessStatus = response.data[0]["b_stt"];
 
             if(businessStatus === "") {
+
                 showModal("국세청에 등록되지 않은 사업자입니다.");
 
                 validations.isCheckBusinessNumber = false;
@@ -96,12 +100,12 @@ password.keyup(function() {
         removeGoodAndAddBad(spans[1]);
         validations.isCheckPasswordCase2 = false;
     }
-
-    if(regex4.test(value)) {
-        removeGoodAndAddBad(spans[2]);
+    
+    if(!regex4.test(value)) {
+        removeBadAndAddGood(spans[2]);
         validations.isCheckPasswordCase3 = true;
     } else {
-        removeBadAndAddGood(spans[2]);
+        removeGoodAndAddBad(spans[2]);
         validations.isCheckPasswordCase3 = false;
     }
 });
@@ -133,10 +137,10 @@ passwordConfirm.keyup(function() {
 
     if(password.val() === passwordConfirm.val()) {
         removeBadAndAddGood(span[0]);
-        validations.isPasswordConfirm = true;
+        validations.isCheckPasswordConfirm = true;
     } else {
         removeGoodAndAddBad(span[0]);
-        validations.isPasswordConfirm = false;
+        validations.isCheckPasswordConfirm = false;
     }
 });
 
@@ -168,7 +172,7 @@ $(".btnRegister").click(function(event) {
     event.preventDefault();
 
     let message = "";
-
+    
     switch (validationName) {
         case "isCheckBusinessNumber":
             message = "사업자등록번호 중복 확인을 해주세요.";
@@ -182,10 +186,11 @@ $(".btnRegister").click(function(event) {
             password.focus();
 
             break;
-        case "isCheckPasswordConform":
+        case "isCheckPasswordConfirm":
             message = "같은 패스워드를 입력해주세요.";
 
             passwordConfirm.focus();
+            
             break;
         default:
             break;

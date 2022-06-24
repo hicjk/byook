@@ -1,6 +1,6 @@
 ﻿namespace byook.Models;
 
-public record Seller
+public class Seller
 {
     [StringLength(11)]
     public string SellerId { get; set; } = string.Empty;

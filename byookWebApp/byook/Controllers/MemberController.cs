@@ -1,4 +1,8 @@
-﻿using System.Security.Cryptography;
+﻿using byook.DataAccess;
+using byook.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace byook.Controllers;
@@ -53,14 +57,7 @@ public class MemberController : Controller
         var passwordHash = sha512.ComputeHash(passwordBytes);
         var hash = BitConverter.ToString(passwordHash).Replace("-", string.Empty);
 
-        var newModel = model with
-        {
-            Password = hash
-        };
-
-        Console.WriteLine(newModel);
-
-        await context.Consumers!.AddAsync(newModel);
+        await context.Consumers!.AddAsync(model);
         await context.SaveChangesAsync();
 
         return RedirectToAction(nameof(Login));
@@ -86,14 +83,7 @@ public class MemberController : Controller
         var passwordHash = sha512.ComputeHash(passwordBytes);
         var hash = BitConverter.ToString(passwordHash).Replace("-", string.Empty);
 
-        var newModel = model with
-        {
-            Password = hash
-        };
-
-        Console.WriteLine(newModel);
-
-        await context.Sellers!.AddAsync(newModel);
+        await context.Sellers!.AddAsync(model);
         await context.SaveChangesAsync();
 
         return RedirectToAction(nameof(Login));

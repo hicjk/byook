@@ -1,4 +1,5 @@
-﻿@model SellerRegisterViewModel
+﻿
+@model SellerRegisterViewModel
 
 <div class="joinBox">
     <h3 class="text-center mb-3">사업자 회원가입</h3>
@@ -57,4 +58,4 @@
 @await Html.PartialAsync("~/Common/Modal.cshtml")
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" async></script>
-<script src="~/js/SellerRegister.js" async></script>
+<script src="~/js/SellerRegister.js" asp-append-version="true" async></script>
