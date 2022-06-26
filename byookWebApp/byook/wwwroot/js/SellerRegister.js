@@ -27,6 +27,8 @@ $("#findAddress").click(function() {
 
             otherAddress.css("display", "block");
             otherAddress.focus();
+
+            validations.isCheckAddress = true;
         }
     }).open();
 });
@@ -156,14 +158,14 @@ $(".btnRegister").click(function(event) {
     let isAllTrue = true;
     let validationName = "";
 
-    for(let [key, value] of Object.entries(validations)){
-        if (!value) {
-            validationName = key;
-            isAllTrue = value;
+    //for(let [key, value] of Object.entries(validations)){
+    //    if (!value) {
+    //        validationName = key;
+    //        isAllTrue = value;
 
-            break;
-        }
-    }
+    //        break;
+    //    }
+    //}
 
     if(isAllTrue){
         return;
@@ -196,6 +198,8 @@ $(".btnRegister").click(function(event) {
             break;
     }
 
+    console.dir(validations);
+
     showModal(message);
 });
 
@@ -226,3 +230,10 @@ function IsRegistered(businessNumber) {
     })
 }
 
+function isName() {
+    $("")
+}
+
+function isPhoneNumber() {
+
+}

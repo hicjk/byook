@@ -21,9 +21,21 @@
                     </a>
                 </div>
                 <div class="loginBox">
-                    <a style="margin-right: 7px;" asp-controller="Member" asp-action="Login">
-                        <h6>로그인</h6>
-                    </a>
+                    @{
+                        if(User.Identity!.IsAuthenticated)
+                        {
+                            <a style="margin-right: 7px;" asp-controller="Member" asp-action="SellerLogout">
+                                <h6>로그아웃</h6>
+                            </a>
+                        }
+                        else
+                        {
+                            <a style="margin-right: 7px;" asp-controller="Member" asp-action="Login">
+                                <h6>로그인</h6>
+                            </a>
+                        }
+                    }
+
                     <a asp-controller="Member" asp-action="SelectJoin">
                         <h6>회원가입</h6>
                     </a>

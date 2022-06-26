@@ -1,10 +1,9 @@
 ﻿using byook.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace byook.DataAccess;
 
-public class ByookDbContext : IdentityDbContext
+public class ByookDbContext : DbContext
 {
     public DbSet<Consumer>? Consumers { get; set; }
     public DbSet<Seller>? Sellers { get; set; }

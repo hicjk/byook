@@ -1,26 +1,72 @@
-//global using Microsoft.EntityFrameworkCore;
-//global using Microsoft.AspNetCore.Mvc;
-//global using byook.DataAccess;
-//global using byook.Models;
-//global using byook.ViewModels;
-using byook.DataAccess;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Mvc;
+global using byook.DataAccess;
+global using byook.Models;
+global using byook.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.DependencyInjection;
+using byook.Utility;
+using byook.Utility.Extensions;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<ByookDbContext>(option => option.UseInMemoryDatabase("byook"));
+//builder.Services.AddDbContext<ByookDbContext>(option => option.UseInMemoryDatabase("byook"));
+builder.Services.AddDbContext<ByookDbContext>(option => option.UseSqlite("DataSource=byook.db"));
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
-builder.Services.ConfigureApplicationCookie(options =>
+//builder.Services
+//    .AddAuthentication(options =>
+//    {
+//        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+//        options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+//    })
+//    .AddCookie(options =>
+//    {
+//        options.ExpireTimeSpan = TimeSpan.FromSeconds(10);
+//    });
+
+var tokenOptions = new TokenOptions(builder.Configuration["Jwt:Issuer"], builder.Configuration["Jwt:Audience"], builder.Configuration["Jwt:SecretKey"]);
+builder.Services.AddJwtAuthenticationWithProtectedCookie(tokenOptions, "Home");
+builder.Services.AddAuthorization(options =>
 {
-    options.ExpireTimeSpan = TimeSpan.FromHours(1);
-    options.LoginPath = "/Member/ConsumerLogin";
-    options.LogoutPath = "/Member/ConsumerLogout";
-    options.AccessDeniedPath = "/Home/Index";
+    options.AddPolicy(nameof(Seller), policy => policy.RequireClaim(ClaimTypes.Role));
+    options.AddPolicy(nameof(Consumer), policy => policy.RequireClaim(ClaimTypes.Role));
 });
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+//builder.Services.ConfigureApplicationCookie(options =>
+//{
+//    options.ExpireTimeSpan = TimeSpan.FromHours(1);
+//    options.LoginPath = "/Account/LogIn";
+//    options.LogoutPath = "/Account/LogOut";
+//    options.AccessDeniedPath = "/Home/Index";
+//});
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.RequireAuthenticatedSignIn = false;
+//})
+//.AddJwtBearer(options =>
+//{
+//    options.SaveToken = true;
+//    options.RequireHttpsMetadata = false;
+//    options.TokenValidationParameters = new TokenValidationParameters()
+//    {
+//        ValidateIssuer = true,
+//        ValidateAudience = true,
+//        ValidAudience = builder.Configuration["Jwt:Audience"],
+//        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]))
+//    };
+//});
+builder.Services.AddMvc();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 var app = builder.Build();
 
