@@ -1,0 +1,63 @@
+﻿@model SellerRegisterViewModel
+
+<div class="container mt-100">
+    <h3 class="text-center mb-3">사업자 회원가입</h3>
+    <form method="post" asp-controller="Member" asp-action="SellerRegister">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" id="businessNumber" asp-for="Seller!.SellerId" placeholder="사업자 등록번호" tabindex="1" />
+                    <button type="button" id="findBusinessNumber" class="button">중복 확인</button>
+                    <input type="hidden" />
+                </td>
+            </tr>
+            <tr>
+                <td id="td_password">
+                    <input type="password" asp-for="Seller!.Password" id="password" placeholder="비밀번호" tabindex="2" />
+                    <p class="guide" style="display: none;">
+                        <span class="case1">- 10자 이상 입력</span>
+                        <span class="case2">- 영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합</span>
+                        <span class="case3">- 동일한 숫자 3개 이상 연속 사용 불가</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td id="td_passwordConfirm">
+                    <input type="password" id="passwordConfirm" placeholder="비밀번호 확인" tabindex="3" />
+                    <p class="guide" style="display: none;">
+                        <span class="case1">- 동일한 비밀번호를 입력하세요 </span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="address" asp-for="Seller!.Address" readonly />
+                    <button type="button" id="findAddress" class="button" tabindex="4">주소 검색</button><br />
+                    <input type="text" id="otherAddress" style="display: none;" class="mt-3" asp-for="OtherAddress" placeholder="나머지 주소를 입력하세요." tabindex="5" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="name" asp-for="Seller!.Name" placeholder="이름" tabindex="6" />
+                    <span></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="phoneNumber" asp-for="Seller!.PhoneNumber" placeholder="휴대폰 번호" tabindex="7" />
+                    <span></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="btnRegister" type="submit" value="가입하기" tabindex="8" />
+                    <span></span>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+@await Html.PartialAsync("~/Common/Modal.cshtml")
+
+ <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" async></script> 
+<script src="~/js/SellerRegister.js" asp-append-version="true" async></script>

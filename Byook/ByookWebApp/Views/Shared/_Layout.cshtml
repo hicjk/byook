@@ -1,0 +1,67 @@
+﻿@using System.Security.Claims
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Byook</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Byook.styles.css" asp-append-version="true" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+    <header class="my-4">
+        <nav class="navbar navbar-light">
+            <div class="container">
+                <div class="logo">
+                    <a asp-controller="Home" asp-action="Index">
+                        <h3>비정육</h3>
+                    </a>
+                </div>
+                <div class="loginBox">
+                    @{
+                        if (User.Identity!.IsAuthenticated)
+                        {
+                            <a style="margin-right: 7px;" asp-controller="Member" asp-action="Logout"><h6>로그아웃</h6></a>
+
+                            if(User.Claims.FirstOrDefault(d => d.Type.Equals(ClaimTypes.Role))!.Value.Equals("Seller"))
+                            {
+                                <a asp-controller="Member" asp-action="SellerMyPage"><h6>마이페이지</h6></a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Member" asp-action="ConsumerMyPage"><h6>마이페이지</h6></a>
+                            }
+                        }
+                        else
+                        {
+                            <a style="margin-right: 7px;" asp-controller="Member" asp-action="ConsumerLogin"><h6>로그인</h6></a>
+                            <a asp-controller="Member" asp-action="SelectRegister"><h6>회원가입</h6></a>
+                        }
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div style="width: 1024px; margin: 0 auto;">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer">
+        <div class="">
+            &copy; 2022 - Byook - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/bootstrap/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
