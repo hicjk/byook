@@ -31,11 +31,14 @@
 }
 
 ul {
+    height:100%;
     list-style: none;
+    display: flex;
+    align-items: center;
+    margin-top: 0px;
 }
 
 li {
-    float: left;
     margin-left: 20px;
 }
 
@@ -213,4 +216,29 @@ table td {
     width: 75%;
     float: Right;
     margin: 1px;
+}
+
+.myPageList {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.myPageList div {
+    display: flex;
+    width: 120px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+}
+
+.myPageIcon {
+    border: none;
+    display:flex;
+    align-items: center;
+    background-color: white;
 }

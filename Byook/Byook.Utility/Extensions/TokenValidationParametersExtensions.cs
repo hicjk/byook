@@ -1,22 +1,23 @@
-﻿namespace Byook.Utility.Extensions;
-
-public static class TokenValidationParametersExtensions
+﻿namespace Byook.Utility.Extensions
 {
-    public static TokenValidationParameters ToTokenValidationParams(this TokenOptions tokenOptions)
+    public static class TokenValidationParametersExtensions
     {
-        return new TokenValidationParameters
+        public static TokenValidationParameters ToTokenValidationParams(this TokenOptions tokenOptions)
         {
-            ValidateAudience = true,
-            ValidateIssuer = true,
-            ValidateIssuerSigningKey = true,
-            
-            ValidAudience = tokenOptions.Audience,
-            ValidIssuer = tokenOptions.Issuer,
-            IssuerSigningKey = tokenOptions.SigningKey,
+            return new TokenValidationParameters
+            {
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidateIssuerSigningKey = true,
 
-            RequireExpirationTime = true,
-            ValidateLifetime = false,
-            ClockSkew = TimeSpan.Zero
-        };
+                ValidAudience = tokenOptions.Audience,
+                ValidIssuer = tokenOptions.Issuer,
+                IssuerSigningKey = tokenOptions.SigningKey,
+
+                RequireExpirationTime = true,
+                ValidateLifetime = false,
+                ClockSkew = TimeSpan.Zero
+            };
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@using System.Security.Claims
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,7 +14,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
-    <header class="my-4">
+    <header class="mt-4">
         <nav class="navbar navbar-light">
             <div class="container">
                 <div class="logo">
@@ -22,44 +23,59 @@
                     </a>
                 </div>
                 <div class="loginBox">
-                    @{
-                        if (User.Identity!.IsAuthenticated)
-                        {
-                            <a style="margin-right: 7px;" asp-controller="Member" asp-action="Logout"><h6>로그아웃</h6></a>
-
-                            if(User.Claims.FirstOrDefault(d => d.Type.Equals(ClaimTypes.Role))!.Value.Equals("Seller"))
+                    <ul>
+                        @{
+                            if(User.Identity!.IsAuthenticated)
                             {
-                                <a asp-controller="Member" asp-action="SellerMyPage"><h6>마이페이지</h6></a>
+                                <li><button id="myPageIcon" class="myPageIcon" type="button"><img src="/images/ico_gnb_all_off.png" /></button></li>
+                                //if(User.Claims.FirstOrDefault(d => d.Type.Equals(ClaimTypes.Role))!.Value.Equals("Seller"))
+                                //{
+                                //    <button type="button"><img src="/images/ico_gnb_all_off.png" class="myPageIcon" /></button>
+                                //}
+                                //else
+                                //{
+                                //    <button type="button"><img src="/images/ico_gnb_all_off.png" class="myPageIcon" /></button>
+                                //}
                             }
                             else
                             {
-                                <a asp-controller="Member" asp-action="ConsumerMyPage"><h6>마이페이지</h6></a>
+                                <li><a style="margin-right: 7px;" asp-controller="Member" asp-action="ConsumerLogin">로그인</a></li>
+                                <li><a asp-controller="Member" asp-action="SelectRegister">회원가입</a></li>
                             }
                         }
-                        else
-                        {
-                            <a style="margin-right: 7px;" asp-controller="Member" asp-action="ConsumerLogin"><h6>로그인</h6></a>
-                            <a asp-controller="Member" asp-action="SelectRegister"><h6>회원가입</h6></a>
-                        }
-                    }
+                    </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-    <div style="width: 1024px; margin: 0 auto;">
-        <main role="main" class="pb-3">
+    <div style="width: 1024px; margin: 0 auto; position: relative;">
+        <div class="myPageList" style="display: none;">
+            <div>
+                <a asp-controller="Product" asp-action="Index">상품 조회</a>
+            </div>
+            <div>
+                <a asp-controller="Product" asp-action="Create">상품 등록</a>
+            </div>
+            <div>
+                <a asp-controller="Order" asp-action="Index">주문 조회</a>
+            </div>
+            <div>
+                <a asp-controller="Member" asp-action="Logout">로그아웃</a>
+            </div>
+        </div>
+        <main role="main" class="py-4">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer">
-        <div class="">
-            &copy; 2022 - Byook - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    @*<footer class="border-top footer">
+    <div class="">
+    &copy; 2022 - Byook - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+    </footer>*@
 
-    <script src="~/lib/bootstrap/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)

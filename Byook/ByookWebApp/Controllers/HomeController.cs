@@ -1,18 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Byook.Controllers;
-
-public sealed class HomeController : Controller
+﻿namespace Byook.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public sealed class HomeController : Controller
     {
-        _logger = logger;
-    }
+        private readonly ILogger<HomeController> _logger;
 
-    public IActionResult Index()
-    {
-        return View();
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }

@@ -1,0 +1,35 @@
+﻿@using System.Security.Claims
+@model Product
+
+<div class="container mt-100">
+    <h3 class="text-center mb-3">상품 등록</h3>
+    <form method="post" asp-controller="Product" asp-action="Create">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" asp-for="Comment" placeholder="상품명" tabindex="1" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" asp-for="Price" placeholder="가격" tabindex="2" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" asp-for="Weight" placeholder="무게" tabindex="3"   />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="file" asp-for="ImageUrl" name="file" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="등록" tabindex="4" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
