@@ -1,3 +1,5 @@
+
+
 namespace Byook.Models
 {
 
@@ -5,8 +7,7 @@ namespace Byook.Models
     {
         [Key]
         [Comment("상품번호")]
-        [StringLength(11)]
-        public string ProductId { get; set; } = string.Empty;
+        public int Id { get; set; }
 
         [Comment("사업자등록번호")]
         [StringLength(11)]
@@ -30,6 +31,7 @@ namespace Byook.Models
         [Range(50, 999)]
         public int Weight { get; set; }
 
+        [ValidateNever]
         public string ImageUrl { get; set; } = string.Empty;
     }
 }

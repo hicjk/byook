@@ -1,50 +1,65 @@
 ﻿using Newtonsoft.Json.Linq;
+using NuGet.Packaging.Signing;
 using System.Security.Claims;
 
 namespace ByookWebApp.Controllers
 {
     public class ProductController : Controller
     {
+        private readonly IWebHostEnvironment hostEnvironment;
         private readonly ByookDbContext context;
 
-        public ProductController(ByookDbContext context)
+        public ProductController(ByookDbContext context, IWebHostEnvironment hostEnvironment)
         {
             this.context = context;
+            this.hostEnvironment = hostEnvironment;
         }
 
-        // GET: ProductController
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
 
-        // GET: ProductController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: ProductController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Product model, IFormFile? file)
+        public async Task<IActionResult> Create(Product model, IFormFile? file)
         {
             try
             {
-                if(ModelState.IsValid)
+                if(!ModelState.IsValid)
                 {
+                    return View();
+                }
 
+                if(file is not null)
+                {
+                    var rootPath = hostEnvironment.WebRootPath;
+                    var extension = Path.GetExtension(file.FileName);
+                    var uploadPath = Path.Combine(rootPath, @"saveImages\");
+
+                    var saveImageName = Path.Combine(model.CreateDate.ToString("yyyyMMddHHmmss"), extension).Replace("\\", string.Empty);
+
+                    using var fs = new FileStream(Path.Combine(uploadPath, saveImageName), FileMode.Create);
+
+                    await file.CopyToAsync(fs);
+
+                    model.ImageUrl = $@"/saveImages/Products/{saveImageName}";
                 }
 
                 model.SellerId = User.Claims.FirstOrDefault(d => d.Type.Equals(ClaimTypes.NameIdentifier))!.Value;
 
                 await context.Product!.AddAsync(model);
+                await context.SaveChangesAsync();
 
                 return View(nameof(Index));
             }
@@ -55,7 +70,7 @@ namespace ByookWebApp.Controllers
         }
 
         // GET: ProductController/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             return View();
         }
@@ -63,7 +78,7 @@ namespace ByookWebApp.Controllers
         // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -84,7 +99,7 @@ namespace ByookWebApp.Controllers
         // POST: ProductController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, IFormCollection collection)
         {
             try
             {

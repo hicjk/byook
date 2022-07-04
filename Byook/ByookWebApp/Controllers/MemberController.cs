@@ -31,7 +31,7 @@ namespace Byook.Controllers
             {
                 var user = await context.Seller!
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(d => d.SellerId.Equals(businessNumber));
+                    .FirstOrDefaultAsync(d => d.Id.Equals(businessNumber));
 
                 return Ok(user is not null);
             }
@@ -49,7 +49,7 @@ namespace Byook.Controllers
             {
                 var user = await context.Consumer!
                 .AsNoTracking()
-                .FirstOrDefaultAsync(d => d.ConsumerId.Equals(businessNumber));
+                .FirstOrDefaultAsync(d => d.Id.Equals(businessNumber));
 
                 return Ok(user is null);
             }
@@ -79,7 +79,7 @@ namespace Byook.Controllers
             }
 
             var hash = GeneratorHash(user.Password);
-            var findUser = await context.Seller!.FirstOrDefaultAsync(u => u.SellerId.Equals(user.SellerId) && u.Password.Equals(hash));
+            var findUser = await context.Seller!.FirstOrDefaultAsync(u => u.Id.Equals(user.SellerId) && u.Password.Equals(hash));
 
             if(findUser is null)
             {
@@ -108,7 +108,7 @@ namespace Byook.Controllers
             }
 
             var hash = GeneratorHash(user.Password);
-            var findUser = await context.Consumer!.FirstOrDefaultAsync(u => u.ConsumerId.Equals(user.ConsumerId) && u.Password.Equals(hash));
+            var findUser = await context.Consumer!.FirstOrDefaultAsync(u => u.Id.Equals(user.ConsumerId) && u.Password.Equals(hash));
 
             if(findUser is null)
             {
@@ -174,8 +174,15 @@ namespace Byook.Controllers
             model.Seller!.Password = hash;
             model.Seller.Address = $"{model.Seller.Address} {model.OtherAddress}";
 
-            await context.Seller!.AddAsync(model.Seller!);
-            await context.SaveChangesAsync();
+            try
+            {
+                await context.Seller!.AddAsync(model.Seller!);
+                await context.SaveChangesAsync();
+            }
+            catch(Exception)
+            {
+
+            }
 
             return RedirectToAction(nameof(SellerLogin));
         }

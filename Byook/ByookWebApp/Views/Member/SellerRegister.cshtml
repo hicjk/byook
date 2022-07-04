@@ -6,7 +6,7 @@
         <table>
             <tr>
                 <td>
-                    <input type="text" id="businessNumber" asp-for="Seller!.SellerId" placeholder="사업자 등록번호" tabindex="1" />
+                    <input type="text" id="businessNumber" asp-for="Seller!.Id" placeholder="사업자 등록번호" tabindex="1" />
                     <button type="button" id="findBusinessNumber" class="button">중복 확인</button>
                 </td>
             </tr>
@@ -43,19 +43,26 @@
             </tr>
             <tr>
                 <td>
-                    <input type="text" id="phoneNumber" asp-for="Seller!.PhoneNumber" placeholder="휴대폰 번호" tabindex="7" />
+                    <input type="text" id="tradeName" asp-for="Seller!.TradeName" placeholder="상호명" tabindex="7" />
                     <span></span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input class="btnRegister" type="submit" value="가입하기" tabindex="8" />
+                    <input type="text" id="phoneNumber" asp-for="Seller!.PhoneNumber" placeholder="휴대폰 번호" tabindex="8" />
+                    <span></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="btnRegister" type="submit" value="가입하기" tabindex="9" />
                     <span></span>
                 </td>
             </tr>
         </table>
     </form>
 </div>
+
 @await Html.PartialAsync("~/Common/Modal.cshtml")
 
  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" async></script> 

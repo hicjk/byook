@@ -5,7 +5,7 @@
         [Comment("아이디")]
         [Required(ErrorMessage = "아이디를 입력해주세요.")]
         [StringLength(15)]
-        public string ConsumerId { get; set; } = string.Empty;
+        public string Id { get; set; } = string.Empty;
 
         [Comment("비밀번호")]
         [Required(ErrorMessage = "비밀번호를 입력해주세요.")]

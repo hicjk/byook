@@ -19,7 +19,7 @@ namespace Byook.DataAccess.Migrations
 
             modelBuilder.Entity("Byook.Models.Consumer", b =>
                 {
-                    b.Property<string>("ConsumerId")
+                    b.Property<string>("Id")
                         .HasMaxLength(15)
                         .HasColumnType("TEXT")
                         .HasComment("아이디");
@@ -48,7 +48,7 @@ namespace Byook.DataAccess.Migrations
                         .HasColumnType("TEXT")
                         .HasComment("핸드폰 번호");
 
-                    b.HasKey("ConsumerId");
+                    b.HasKey("Id");
 
                     b.ToTable("Consumer");
                 });
@@ -64,15 +64,15 @@ namespace Byook.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("TEXT")
-                        .HasComment("아이디");
+                        .HasComment("소비자");
 
-                    b.Property<string>("ProductId")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("TEXT")
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER")
                         .HasComment("상품번호");
 
                     b.HasKey("OrderId");
+
+                    b.HasIndex("ConsumerId");
 
                     b.HasIndex("ProductId");
 
@@ -81,9 +81,9 @@ namespace Byook.DataAccess.Migrations
 
             modelBuilder.Entity("Byook.Models.Product", b =>
                 {
-                    b.Property<string>("ProductId")
-                        .HasMaxLength(11)
-                        .HasColumnType("TEXT")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
                         .HasComment("상품번호");
 
                     b.Property<string>("Comment")
@@ -96,9 +96,16 @@ namespace Byook.DataAccess.Migrations
                         .HasColumnType("TEXT")
                         .HasComment("등록날짜");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Price")
                         .HasColumnType("INTEGER")
                         .HasComment("가격");
+
+                    b.Property<string>("ProductId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("SellerId")
                         .IsRequired()
@@ -110,16 +117,16 @@ namespace Byook.DataAccess.Migrations
                         .HasColumnType("INTEGER")
                         .HasComment("무게");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("SellerId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Product");
                 });
 
             modelBuilder.Entity("Byook.Models.Seller", b =>
                 {
-                    b.Property<string>("SellerId")
+                    b.Property<string>("Id")
                         .HasMaxLength(11)
                         .HasColumnType("TEXT")
                         .HasComment("사업자등록번호");
@@ -148,24 +155,35 @@ namespace Byook.DataAccess.Migrations
                         .HasColumnType("TEXT")
                         .HasComment("핸드폰번호");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("TradeName")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("TEXT")
                         .HasComment("상호명");
 
-                    b.HasKey("SellerId");
+                    b.HasKey("Id");
 
                     b.ToTable("Seller");
                 });
 
             modelBuilder.Entity("Byook.Models.Order", b =>
                 {
+                    b.HasOne("Byook.Models.Consumer", "Consumer")
+                        .WithMany()
+                        .HasForeignKey("ConsumerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Byook.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Consumer");
 
                     b.Navigation("Product");
                 });
@@ -174,9 +192,7 @@ namespace Byook.DataAccess.Migrations
                 {
                     b.HasOne("Byook.Models.Seller", null)
                         .WithMany("Products")
-                        .HasForeignKey("SellerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("Byook.Models.Seller", b =>

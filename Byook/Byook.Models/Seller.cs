@@ -1,12 +1,11 @@
 ﻿namespace Byook.Models
 {
-
     public class Seller
     {
         [Comment("사업자등록번호")]
         [Required(ErrorMessage = "아이디를 입력해주세요.")]
         [StringLength(11)]
-        public string SellerId { get; set; } = string.Empty;
+        public string Id { get; set; } = string.Empty;
 
         [Comment("비밀번호")]
         [Required(ErrorMessage = "비밀번호를 입력해주세요.")]
@@ -30,7 +29,11 @@
         [StringLength(30)]
         public string Address { get; set; } = string.Empty;
 
-        [ForeignKey("SellerId")]
+        [Required]
+        public int ProductId { get; set; }
+
+        [ValidateNever]
+        [ForeignKey(nameof(ProductId))]
         public ICollection<Product>? Products { get; set; }
     }
 }

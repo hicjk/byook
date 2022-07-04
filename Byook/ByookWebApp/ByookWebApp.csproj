@@ -30,4 +30,8 @@
     <ProjectReference Include="..\Byook.ViewModels\Byook.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\saveImages\Products\" />
+  </ItemGroup>
+
 </Project>

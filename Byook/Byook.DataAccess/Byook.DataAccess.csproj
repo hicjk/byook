@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Byook.Models\Byook.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

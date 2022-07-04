@@ -6,15 +6,19 @@ namespace Byook.Models
         [StringLength(18)]
         public string OrderId { get; set; } = string.Empty;
 
-        [Comment("아이디")]
+        [Comment("소비자")]
         [StringLength(15)]
         public string ConsumerId { get; set; } = string.Empty;
 
-        [Comment("상품번호")]
-        [StringLength(11)]
-        public string ProductId { get; set; } = string.Empty;
+        [ValidateNever]
+        [ForeignKey(nameof(ConsumerId))]
+        public Consumer? Consumer { get; set; }
 
-        [ForeignKey("ProductId")]
+        [Comment("상품번호")]
+        public int ProductId { get; set; }
+
+        [ValidateNever]
+        [ForeignKey(nameof(ProductId))]
         public Product? Product { get; set; }
     }
 }

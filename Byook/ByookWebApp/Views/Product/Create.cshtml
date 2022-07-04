@@ -1,9 +1,8 @@
-﻿@using System.Security.Claims
-@model Product
+﻿@model Product
 
 <div class="container mt-100">
     <h3 class="text-center mb-3">상품 등록</h3>
-    <form method="post" asp-controller="Product" asp-action="Create">
+    <form method="post" asp-controller="Product" asp-action="Create" enctype="multipart/form-data">
         <table>
             <tr>
                 <td>
@@ -17,12 +16,12 @@
             </tr>
             <tr>
                 <td>
-                    <input type="text" asp-for="Weight" placeholder="무게" tabindex="3"   />
+                    <input type="text" asp-for="Weight" placeholder="무게" tabindex="3" />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="file" asp-for="ImageUrl" name="file" />
+                    <input type="file" name="file" />
                 </td>
             </tr>
             <tr>
