@@ -17,7 +17,9 @@ namespace ByookWebApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Product> products = context.Product!;
+
+            return View(products);
         }
 
         public IActionResult Details(int id)
@@ -34,18 +36,18 @@ namespace ByookWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product model, IFormFile? file)
         {
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
+
             try
             {
-                if(!ModelState.IsValid)
-                {
-                    return View();
-                }
-
                 if(file is not null)
                 {
                     var rootPath = hostEnvironment.WebRootPath;
                     var extension = Path.GetExtension(file.FileName);
-                    var uploadPath = Path.Combine(rootPath, @"saveImages\");
+                    var uploadPath = Path.Combine(rootPath, @"saveImages\Products\");
 
                     var saveImageName = Path.Combine(model.CreateDate.ToString("yyyyMMddHHmmss"), extension).Replace("\\", string.Empty);
 
@@ -61,7 +63,7 @@ namespace ByookWebApp.Controllers
                 await context.Product!.AddAsync(model);
                 await context.SaveChangesAsync();
 
-                return View(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {

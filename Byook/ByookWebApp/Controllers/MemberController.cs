@@ -59,11 +59,6 @@ namespace Byook.Controllers
             }
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
-
         public IActionResult SellerLogin()
         {
             return View();
@@ -104,6 +99,9 @@ namespace Byook.Controllers
         {
             if(!ModelState.IsValid)
             {
+                var errorItem = ModelState.FirstOrDefault(d => d.Value!.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid).Key;
+                TempData["Error"] = errorItem;
+
                 return View(user);
             }
 
@@ -152,7 +150,7 @@ namespace Byook.Controllers
             await context.Consumer!.AddAsync(model);
             await context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Login));
+            return RedirectToAction(nameof(ConsumerLogin));
         }
 
         public IActionResult SellerRegister()

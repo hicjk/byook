@@ -50,7 +50,7 @@
     </header>
 
     <div style="width: 1024px; margin: 0 auto; position: relative;">
-        <div class="myPageList" style="display: none;">
+        <div class="myPageList" style="display: none; background-color: white;">
             <div>
                 <a asp-controller="Product" asp-action="Index">상품 조회</a>
             </div>
@@ -69,6 +69,7 @@
         </main>
     </div>
 
+    @await Html.PartialAsync("~/Common/Modal.cshtml")
     @*<footer class="border-top footer">
     <div class="">
     &copy; 2022 - Byook - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

@@ -1,1 +1,22 @@
-﻿
+﻿@model IEnumerable<Product>
+
+<div class="container mt-100">
+    <h3 class="text-center mb-3">등록한 상품 목록</h3>
+    <div class="row row-cols-3">
+        @{
+            foreach(var item in Model)
+            {
+                <div class="col p-2 mb-4">
+                    <div>
+                        <a asp-controller="" asp-action=""><img style="width: 300px;" src="@item.ImageUrl" /></a>
+                    </div>
+                    <div>
+                        <a asp-controller="" asp-action="" style="color: black;"><h5>@item.Comment</h5></a>
+                        <p>@(item.Price.ToString("#,0"))원</p>
+                        <span>@(item.Weight)g</span>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
