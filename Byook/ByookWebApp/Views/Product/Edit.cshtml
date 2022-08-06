@@ -1,0 +1,62 @@
+﻿@model Product
+
+<div class="container mt-100">
+    <h3 class="text-center mb-3">상품 등록</h3>
+    <form method="post" asp-controller="Product" asp-action="Edit" enctype="multipart/form-data">
+        <input id="productId" asp-for="Id" type="hidden" />
+        <input id="sellerid" asp-for="SellerId" type="hidden" />
+        <input id="imageUrl" asp-for="ImageUrl" type="hidden" />
+        <table>
+            <tr>
+                <td>
+                    <input type="text" asp-for="Comment" placeholder="상품명" tabindex="1" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" asp-for="Price" placeholder="가격" tabindex="2" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" asp-for="Weight" placeholder="무게" tabindex="3" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="file" name="file" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" class="btnRegister" value="수정" tabindex="4" />
+                    <button id="delete" class="btnRegister" type="button">삭제</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<script>
+    $("#delete").click(function() {
+        let data = {
+            "ProductId": $("#productId").val(),
+            "SellerId": $("#sellerid").val(),
+            "ImageUrl": $("#imageUrl").val()
+        };
+
+        $.ajax({
+            url: "/Product/Delete",
+            type: "Post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            success: function(json) {
+                location.href = "/Product/Index";
+            },
+            error: function(message) {
+                //console.log(message);
+            }
+        });
+    });
+</script>

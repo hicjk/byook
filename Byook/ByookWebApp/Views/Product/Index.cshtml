@@ -7,11 +7,12 @@
             foreach(var item in Model)
             {
                 <div class="col p-2 mb-4">
+                    
                     <div>
-                        <a asp-controller="" asp-action=""><img style="width: 300px;" src="@item.ImageUrl" /></a>
+                        <a style="color: black;" asp-controller="Product" asp-action="Edit" asp-route-id="@item.Id"><img style="width: 300px;" src="@item.ImageUrl" /></a>
                     </div>
                     <div>
-                        <a asp-controller="" asp-action="" style="color: black;"><h5>@item.Comment</h5></a>
+                        <h5>@item.Comment</h5>
                         <p>@(item.Price.ToString("#,0"))원</p>
                         <span>@(item.Weight)g</span>
                     </div>
@@ -20,3 +21,4 @@
         }
     </div>
 </div>
+
